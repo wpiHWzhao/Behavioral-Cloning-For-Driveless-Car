@@ -8,7 +8,7 @@ from random import shuffle
 from keras.models import Sequential, Model
 from keras.layers import Flatten, Dense, Lambda, Convolution2D, Cropping2D
 from keras.layers.pooling import MaxPooling2D
-import matplotlib.pyplot as plt
+
 
 def readData():
     samples = []
@@ -37,6 +37,8 @@ def generator(samples, batch_size=32, correction = 0.2):
                 assert center_image is not None, 'Center image is None!!'
                 images.append(center_image)
                 angles.append(center_angle)
+                images.append(cv2.flip(center_image,1))
+                angles.append(center_angle*-1.0)
 
                 name_left = 'data/IMG/'+batch_sample[1].split('/')[-1]
                 left_image = cv2.imread(name_left)
@@ -45,6 +47,8 @@ def generator(samples, batch_size=32, correction = 0.2):
                 assert left_image is not None, 'Left image is None'
                 images.append(left_image)
                 angles.append(left_angle + correction)
+                images.append(cv2.flip(left_image,1))
+                angles.append((left_angle+correction)*-1.0)
 
                 name_right = 'data/IMG/' + batch_sample[2].split('/')[-1]
                 right_image = cv2.imread(name_right)
@@ -53,12 +57,13 @@ def generator(samples, batch_size=32, correction = 0.2):
                 assert right_image is not None, 'Right image is None'
                 images.append(right_image)
                 angles.append(right_angle - correction)
+                images.append(cv2.flip(right_image,1))
+                angles.append((left_angle-correction)*-1.0)
 
 
             X_train = np.array(images)
             y_train = np.array(angles)
-            print('X_train is ', len(X_train))
-            print('y_train is ', len(y_train))
+
             yield sklearn.utils.shuffle(X_train, y_train)
 
 
