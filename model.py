@@ -58,7 +58,7 @@ def generator(samples, batch_size=32, correction = 0.2):
                 images.append(right_image)
                 angles.append(right_angle - correction)
                 images.append(cv2.flip(right_image,1))
-                angles.append((left_angle-correction)*-1.0)
+                angles.append((right_angle-correction)*-1.0)
 
 
             X_train = np.array(images)
@@ -102,7 +102,7 @@ history_object = model.fit_generator(train_generator, steps_per_epoch= len(train
 
 
 
-model.save('model.h5')
+model.save('model_flip.h5')
 print(history_object.history.keys())
 print('Loss')
 print(history_object.history['loss'])
