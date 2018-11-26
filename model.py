@@ -98,11 +98,11 @@ model = nVaidiaModel()
 model.compile(loss='mse', optimizer='adam')
 history_object = model.fit_generator(train_generator, steps_per_epoch= len(train_samples),
                                      validation_data=validation_generator, validation_steps=len(validation_samples),
-                                     epochs=5, verbose = 1)
+                                     epochs=3, verbose = 1)
 
 
 
-model.save('model_5.h5')
+model.save('model_7.h5')
 print(history_object.history.keys())
 print('Loss')
 print(history_object.history['loss'])
