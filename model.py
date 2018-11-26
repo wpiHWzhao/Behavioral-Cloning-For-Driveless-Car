@@ -35,6 +35,7 @@ def generator(samples, batch_size=32, correction = 0.2):
                 center_angle = float(batch_sample[3])
                 assert center_angle is not None, 'Center angle is None!!'
                 assert center_image is not None, 'Center image is None!!'
+                center_image = cv2.cvtColor(center_image, cv2.COLOR_BGR2RGB)
                 images.append(center_image)
                 angles.append(center_angle)
                 images.append(cv2.flip(center_image,1))
@@ -45,6 +46,7 @@ def generator(samples, batch_size=32, correction = 0.2):
                 left_angle = float(batch_sample[3])
                 assert left_angle is not None, 'Left angle is None'
                 assert left_image is not None, 'Left image is None'
+                left_image = cv2.cvtColor(left_image, cv2.COLOR_BGR2RGB)
                 images.append(left_image)
                 angles.append(left_angle + correction)
                 images.append(cv2.flip(left_image,1))
@@ -55,6 +57,7 @@ def generator(samples, batch_size=32, correction = 0.2):
                 right_angle = float(batch_sample[3])
                 assert right_angle is not None, 'Right angle is None'
                 assert right_image is not None, 'Right image is None'
+                right_image = cv2.cvtColor(right_image, cv2.COLOR_BGR2RGB)
                 images.append(right_image)
                 angles.append(right_angle - correction)
                 images.append(cv2.flip(right_image,1))
@@ -102,7 +105,7 @@ history_object = model.fit_generator(train_generator, steps_per_epoch= len(train
 
 
 
-model.save('model_7.h5')
+model.save('model.h5')
 print(history_object.history.keys())
 print('Loss')
 print(history_object.history['loss'])
