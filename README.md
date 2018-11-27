@@ -17,7 +17,8 @@ The related files are:
 * `run1.mp4`: The test drive result.
 
 ### 1. The network architecture 
-The image is from NVIDIA paper:
+The image is from NVIDIA paper:  
+
  ![network](forReadme/nvidia.png)
  
  I kept the entire network and didn't make changes. To reduce overfitting, I limited the training epochs to be 3. Experiments shows that increasing the epochs to 5 would cause overfitting, and result in a poor performence. Also, Adam optimizer is used instead of classical stochastic gradient descent.
